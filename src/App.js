@@ -12,6 +12,8 @@ export function App(params) {
   const [formObject, setFormObject] = useState (blankCustomer);
   let mode = (formObject.id >= 0) ? 'Update' : 'Add';
   useEffect(() => { getCustomers() }, []);
+
+
   const getCustomers =  function(){
     log("in getCustomers()");
     setCustomers(getAll());``
@@ -19,7 +21,12 @@ export function App(params) {
 
   const handleListClick = function(item){
     log("in handleListClick()");
+    if (formObject.id === item.id) {
+    // Clicking the selected row again: deselect
+    setFormObject(blankCustomer);
+  } else {
     setFormObject(item);
+   }
   }  
 
   const handleInputChange = function (event) {
@@ -37,8 +44,8 @@ export function App(params) {
   }
 
   let onDeleteClick = function () {
-if(formObject.id >= 0){
-deleteById(formObject.id);
+  if(formObject.id >= 0){
+  deleteById(formObject.id);
 }
 setFormObject(blankCustomer);
 }
@@ -53,7 +60,9 @@ setFormObject(blankCustomer);
 }
     setFormObject(blankCustomer);
     log("in onSaveClick()");
+  }
 
+  
   return (
     <div>
       <div className="boxed" >
@@ -92,7 +101,7 @@ setFormObject(blankCustomer);
             <tr>
               <td className={'label'} >Name:</td>
               <td><input
-                type="password"
+                type="text"
                 name="name"
                 onChange={(e) => handleInputChange(e)}
                 value={formObject.name}
@@ -104,6 +113,7 @@ setFormObject(blankCustomer);
               <td><input
                 type="email"
                 name="email"
+                onChange={(e) => handleInputChange(e)}
                 value={formObject.email}
                 placeholder="name@company.com" /></td>
             </tr>
@@ -112,6 +122,7 @@ setFormObject(blankCustomer);
               <td><input
                 type="text"
                 name="password"
+                onChange={(e) => handleInputChange(e)}
                 value={formObject.password}
                 placeholder="password" /></td>
             </tr>
@@ -128,6 +139,6 @@ setFormObject(blankCustomer);
     </div>
     </div>
   );
-
+}
 
 export default App;
