@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/amcgowan23/phase02-my-crm-app/static/css/main.1c9b3e01.css",
-    "main.js": "/amcgowan23/phase02-my-crm-app/static/js/main.aaf77cc2.js",
+    "main.js": "/amcgowan23/phase02-my-crm-app/static/js/main.f8edbe2b.js",
     "index.html": "/amcgowan23/phase02-my-crm-app/index.html",
     "main.1c9b3e01.css.map": "/amcgowan23/phase02-my-crm-app/static/css/main.1c9b3e01.css.map",
-    "main.aaf77cc2.js.map": "/amcgowan23/phase02-my-crm-app/static/js/main.aaf77cc2.js.map"
+    "main.f8edbe2b.js.map": "/amcgowan23/phase02-my-crm-app/static/js/main.f8edbe2b.js.map"
   },
   "entrypoints": [
     "static/css/main.1c9b3e01.css",
-    "static/js/main.aaf77cc2.js"
+    "static/js/main.f8edbe2b.js"
   ]
 }
