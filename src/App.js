@@ -53,7 +53,6 @@ setFormObject(blankCustomer);
 }
     setFormObject(blankCustomer);
     log("in onSaveClick()");
-  }
 
   return (
     <div>
