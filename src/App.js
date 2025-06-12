@@ -16,7 +16,7 @@ export function App(params) {
 
   const getCustomers =  function(){
     log("in getCustomers()");
-    setCustomers(getAll());``
+    setCustomers(getAll());
   };
 
   const handleListClick = function(item){
