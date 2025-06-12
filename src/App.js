@@ -130,7 +130,7 @@ export function App(params) {
                 <td className="label">Pass:</td>
                 <td>
                   <input
-                    type="text"
+                    type="password"
                     name="password"
                     onChange={handleInputChange}
                     value={formObject.password}
