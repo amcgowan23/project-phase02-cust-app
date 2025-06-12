@@ -1,5 +1,4 @@
 import React, {useState, useEffect} from 'react';
-// import customers from './memdb.js'
 import { getAll, post, put, deleteById } from './memdb.js'
 import './App.css';
 
@@ -7,9 +6,8 @@ function log(message){console.log(message);}
 
 export function App(params) {
   let blankCustomer = { "id": -1, "name": "", "email": "", "password": "" };
-  // let formObject = customers[0];
   const [customers, setCustomers] = useState([]);
-  const [formObject, setFormObject] = useState (blankCustomer);
+  const [formObject, setFormObject] = useState(blankCustomer);
   let mode = (formObject.id >= 0) ? 'Update' : 'Add';
   useEffect(() => { getCustomers() }, []);
 
@@ -17,17 +15,18 @@ export function App(params) {
   const getCustomers =  function(){
     log("in getCustomers()");
     setCustomers(getAll());
-  };
+  }
 
-  const handleListClick = function(item){
-    log("in handleListClick()");
-    if (formObject.id === item.id) {
+  const handleListClick = function(item) {
+  log("in handleListClick()");
+  
+  if (formObject.id === item.id) {
     // Clicking the selected row again: deselect
     setFormObject(blankCustomer);
   } else {
     setFormObject(item);
-   }
-  };
+  }
+}
 
   const handleInputChange = function (event) {
     log("in handleInputChange()");
@@ -36,29 +35,31 @@ export function App(params) {
     let newFormObject = {...formObject}
     newFormObject[name] = value;
     setFormObject(newFormObject);
-  };
+  }
 
   let onCancelClick = function () {
     log("in onCancelClick()");
     setFormObject(blankCustomer);
-  };
+  }
 
   let onDeleteClick = function () {
-  if(formObject.id >= 0)
-  deleteById(formObject.id);
-  setFormObject(blankCustomer);
-};
+    if(formObject.id >= 0){
+ deleteById(formObject.id);
+ }
+ setFormObject(blankCustomer);
+
+  }
 
   let onSaveClick = function () {
-  if (mode === 'Add') {
-    post(formObject);
-  }
-  if (mode === 'Update') {
-    put(formObject.id, formObject);
-  }
-  setFormObject(blankCustomer);
-  log("in onSaveClick()");
-};
+ if (mode === 'Add') {
+ post(formObject);
+ }
+ if (mode === 'Update') {
+ put(formObject.id, formObject);
+ }
+ setFormObject(blankCustomer);
+}
+
 
   return (
     <div>
@@ -75,8 +76,8 @@ export function App(params) {
           <tbody>
             {customers.map(
               (item, index) => {
-                return (<tr key={item.id} 
-                  className={ (item.id === formObject.id )?'selected': ''}
+                return (<tr key={item.id}
+                className={ (item.id === formObject.id )?'selected': ''} 
                 onClick={()=>handleListClick(item)} 
                 >
                   <td>{item.name}</td>
