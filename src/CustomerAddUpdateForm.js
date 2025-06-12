@@ -35,7 +35,7 @@ function CustomerAddUpdateForm({ formObject, onChange, onDelete, onSave, onCance
               <td className="label">Pass:</td>
               <td>
                 <input
-                  type="text"
+                  type="password"
                   name="password"
                   value={formObject.password}
                   onChange={onChange}
