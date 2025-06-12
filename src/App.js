@@ -17,7 +17,7 @@ export function App(params) {
   const getCustomers =  function(){
     log("in getCustomers()");
     setCustomers(getAll());``
-  }
+  };
 
   const handleListClick = function(item){
     log("in handleListClick()");
@@ -27,7 +27,7 @@ export function App(params) {
   } else {
     setFormObject(item);
    }
-  }  
+  };
 
   const handleInputChange = function (event) {
     log("in handleInputChange()");
@@ -36,31 +36,27 @@ export function App(params) {
     let newFormObject = {...formObject}
     newFormObject[name] = value;
     setFormObject(newFormObject);
-  }
+  };
 
   let onCancelClick = function () {
     log("in onCancelClick()");
     setFormObject(blankCustomer);
-  }
+  };
 
   let onDeleteClick = function () {
-  if(formObject.id >= 0){
+  if(formObject.id >= 0)
   deleteById(formObject.id);
-}
-setFormObject(blankCustomer);
-}
-  }
+  setFormObject(blankCustomer);
+};
 
   let onSaveClick = function () {
-    if (mode === 'Add') {
-    post(formObject);
-}
+    if (mode === 'Add')
+    post(formObject)};
     if (mode === 'Update') {
     put(formObject.id, formObject);
-}
     setFormObject(blankCustomer);
     log("in onSaveClick()");
-  }
+  };
 
   
   return (
