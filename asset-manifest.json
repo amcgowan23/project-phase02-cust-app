@@ -1,10 +1,10 @@
 {
   "files": {
-    "main.css": "/amcgowan23/project-phase02-cust-app/static/css/main.1c9b3e01.css",
-    "main.js": "/amcgowan23/project-phase02-cust-app/static/js/main.07604305.js",
-    "index.html": "/amcgowan23/project-phase02-cust-app/index.html",
-    "main.1c9b3e01.css.map": "/amcgowan23/project-phase02-cust-app/static/css/main.1c9b3e01.css.map",
-    "main.07604305.js.map": "/amcgowan23/project-phase02-cust-app/static/js/main.07604305.js.map"
+    "main.css": "/project-phase02-cust-app/static/css/main.1c9b3e01.css",
+    "main.js": "/project-phase02-cust-app/static/js/main.07604305.js",
+    "index.html": "/project-phase02-cust-app/index.html",
+    "main.1c9b3e01.css.map": "/project-phase02-cust-app/static/css/main.1c9b3e01.css.map",
+    "main.07604305.js.map": "/project-phase02-cust-app/static/js/main.07604305.js.map"
   },
   "entrypoints": [
     "static/css/main.1c9b3e01.css",
