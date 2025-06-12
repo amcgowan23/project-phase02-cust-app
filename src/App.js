@@ -1,15 +1,13 @@
 import React, { useState, useEffect } from 'react';
-// import customers from './memdb.js'
 import { getAll, post, put, deleteById } from './memdb.js';
+import CustomerList from './CustomerList';
+import CustomerAddUpdateForm from './CustomerAddUpdateForm';
 import './App.css';
 
-function log(message) {
-  console.log(message);
-}
+function log(message) { console.log(message); }
 
-export function App(params) {
+export function App() {
   const blankCustomer = { id: -1, name: '', email: '', password: '' };
-
   const [customers, setCustomers] = useState([]);
   const [formObject, setFormObject] = useState(blankCustomer);
 
@@ -19,136 +17,51 @@ export function App(params) {
     getCustomers();
   }, []);
 
-  const getCustomers = function () {
+  const getCustomers = () => {
     log('in getCustomers()');
     setCustomers(getAll());
   };
 
-  const handleListClick = function (item) {
+  const handleListClick = (item) => {
     log('in handleListClick()');
-    if (formObject.id === item.id) {
-      // Clicking the selected row again: deselect
-      setFormObject(blankCustomer);
-    } else {
-      setFormObject(item);
-    }
+    setFormObject(formObject.id === item.id ? blankCustomer : item);
   };
 
-  const handleInputChange = function (event) {
-    log('in handleInputChange()');
-    const name = event.target.name;
-    const value = event.target.value;
-    const newFormObject = { ...formObject };
-    newFormObject[name] = value;
-    setFormObject(newFormObject);
+  const handleInputChange = (event) => {
+    const { name, value } = event.target;
+    setFormObject((prev) => ({ ...prev, [name]: value }));
   };
 
-  const onCancelClick = function () {
-    log('in onCancelClick()');
+  const onCancelClick = () => {
     setFormObject(blankCustomer);
   };
 
-  const onDeleteClick = function () {
-    if (formObject.id >= 0) {
-      deleteById(formObject.id);
-    }
+  const onDeleteClick = () => {
+    if (formObject.id >= 0) deleteById(formObject.id);
     setFormObject(blankCustomer);
   };
 
-  const onSaveClick = function () {
-    if (mode === 'Add') {
-      post(formObject);
-    }
-    if (mode === 'Update') {
-      put(formObject.id, formObject);
-    }
+  const onSaveClick = () => {
+    if (mode === 'Add') post(formObject);
+    if (mode === 'Update') put(formObject.id, formObject);
     setFormObject(blankCustomer);
-    log('in onSaveClick()');
   };
 
   return (
     <div>
-      <div className="boxed">
-        <h4>Customer List</h4>
-        <table id="customer-list">
-          <thead>
-            <tr>
-              <th>Name</th>
-              <th>Email</th>
-              <th>Pass</th>
-            </tr>
-          </thead>
-          <tbody>
-            {customers.map((item) => (
-              <tr
-                key={item.id}
-                className={item.id === formObject.id ? 'selected' : ''}
-                onClick={() => handleListClick(item)}
-              >
-                <td>{item.name}</td>
-                <td>{item.email}</td>
-                <td>{item.password}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-
-      <div className="boxed">
-        <div>
-          <h4>{mode}</h4>
-        </div>
-        <form>
-          <table id="customer-add-update">
-            <tbody>
-              <tr>
-                <td className="label">Name:</td>
-                <td>
-                  <input
-                    type="text"
-                    name="name"
-                    onChange={handleInputChange}
-                    value={formObject.name}
-                    placeholder="Customer Name"
-                    required
-                  />
-                </td>
-              </tr>
-              <tr>
-                <td className="label">Email:</td>
-                <td>
-                  <input
-                    type="email"
-                    name="email"
-                    onChange={handleInputChange}
-                    value={formObject.email}
-                    placeholder="name@company.com"
-                  />
-                </td>
-              </tr>
-              <tr>
-                <td className="label">Pass:</td>
-                <td>
-                  <input
-                    type="password"
-                    name="password"
-                    onChange={handleInputChange}
-                    value={formObject.password}
-                    placeholder="password"
-                  />
-                </td>
-              </tr>
-              <tr className="button-bar">
-                <td colSpan="2">
-                  <input type="button" value="Delete" onClick={onDeleteClick} />
-                  <input type="button" value="Save" onClick={onSaveClick} />
-                  <input type="button" value="Cancel" onClick={onCancelClick} />
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </form>
-      </div>
+      <CustomerList
+        customers={customers}
+        selectedCustomerId={formObject.id}
+        onCustomerClick={handleListClick}
+      />
+      <CustomerAddUpdateForm
+        formObject={formObject}
+        onChange={handleInputChange}
+        onDelete={onDeleteClick}
+        onSave={onSaveClick}
+        onCancel={onCancelClick}
+        mode={mode}
+      />
     </div>
   );
 }
