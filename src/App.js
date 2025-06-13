@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 // import customers from './memdb.js'
-import { getAll, post, put, deleteById } from './memdb.js';
+import { getAll, post, put, deleteById } from './restdb.js';
 import './App.css';
 
 function log(message) {
@@ -15,13 +15,11 @@ export function App(params) {
 
   const mode = formObject.id >= 0 ? 'Update' : 'Add';
 
-  useEffect(() => {
-    getCustomers();
-  }, []);
+  useEffect(() => { getCustomers() }, [formObject]);
 
   const getCustomers = function () {
-    log('in getCustomers()');
-    setCustomers(getAll());
+  log("in getCustomers()");
+  getAll(setCustomers);
   };
 
   const handleListClick = function (item) {
@@ -48,23 +46,24 @@ export function App(params) {
     setFormObject(blankCustomer);
   };
 
-  const onDeleteClick = function () {
+  let onDeleteClick = function () {
+    let postopCallback = () => { setFormObject(blankCustomer); }
     if (formObject.id >= 0) {
-      deleteById(formObject.id);
+      deleteById(formObject.id, postopCallback);
+  } else {
+      setFormObject(blankCustomer);
     }
-    setFormObject(blankCustomer);
   };
 
-  const onSaveClick = function () {
-    if (mode === 'Add') {
-      post(formObject);
-    }
-    if (mode === 'Update') {
-      put(formObject.id, formObject);
-    }
-    setFormObject(blankCustomer);
-    log('in onSaveClick()');
-  };
+  let onSaveClick = function () {
+    let postopCallback = () => { setFormObject(blankCustomer); }
+  if (mode === 'Add') {
+    post(formObject, postopCallback);
+  }
+  if (mode === 'Update') {
+    put(formObject, postopCallback);
+  }
+};
 
   return (
     <div>
